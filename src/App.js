@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+
+import Field from './components/fields/field';
+import Count from './components/enterFieldCount/count'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+constructor(props){
+  super(props)
+  this.state = {
+    count:0
+  }
+}  
+
+handleCount = (count)=>{
+  this.setState({
+    count
+  })
 }
 
-export default App;
+
+  render() {
+    return(
+      <Router>
+        <Switch>
+          <Route path = '/count'>
+            <Count fromChild = {this.handleCount}/>
+          </Route>
+          <Route path = '/field'>
+            <Field count = {this.state.count}/>
+          </Route>
+        </Switch>
+      </Router>
+    )
+
+    
+    
+  }
+}
+
